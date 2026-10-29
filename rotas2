@@ -1,0 +1,73 @@
+
+const express = require("express");
+const app = express();
+const port = 3000;
+
+
+app.get("/", (req, res) => {
+    res.send(`
+        <h1>Catálogo de Heróis</h1>
+        <p>Bem-vindo ao nosso catálogo de heróis!</p>
+
+        <h2>Empresas</h2>
+        <a href="/marvel">Marvel</a><br>
+        <a href="/dc">DC Comics</a>
+
+        <hr>
+
+        <h2>Personagens</h2>
+        <a href="/personagem/marvel/homem-aranha">Homem-Aranha</a><br>
+        <a href="/personagem/marvel/homem-de-ferro">Homem de Ferro</a><br>
+        <a href="/personagem/dc/batman">Batman</a><br>
+        <a href="/personagem/dc/superman">Superman</a>
+    `);
+});
+
+
+app.get("/marvel", (req, res) => {
+    res.send(`
+        <h1>Marvel Comics</h1>
+        <p>A Marvel Comics é uma editora norte-americana de histórias em quadrinhos.</p>
+
+        <h2>Personagens</h2>
+        <a href="/personagem/marvel/homem-aranha">Homem-Aranha</a><br>
+        <a href="/personagem/marvel/homem-de-ferro">Homem de Ferro</a><br>
+
+        <br>
+        <a href="/">Voltar à página inicial</a>
+    `);
+});
+
+
+app.get("/dc", (req, res) => {
+    res.send(`
+        <h1>DC Comics</h1>
+        <p>A DC Comics é uma editora norte-americana de histórias em quadrinhos.</p>
+
+        <h2>Personagens</h2>
+        <a href="/personagem/dc/batman">Batman</a><br>
+        <a href="/personagem/dc/superman">Superman</a><br>
+
+        <br>
+        <a href="/">Voltar à página inicial</a>
+    `);
+});
+
+
+app.get("/personagem/:empresa/:nome", (req, res) => {
+    const empresa = req.params.empresa;
+    const nome = req.params.nome;
+
+    res.send(`
+        <h1>Informações do personagem</h1>
+        <p>Empresa: ${empresa}</p>
+        <p>Personagem: ${nome}</p>
+
+        <a href="/">Voltar à página inicial</a>
+    `);
+});
+
+
+app.listen(port, () => {
+    console.log(`Servidor rodando em http://localhost:${port}`);
+});
